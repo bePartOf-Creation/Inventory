@@ -1,6 +1,7 @@
 package com.mq.kafkaconsumer.services;
 
 import com.mq.kafkaconsumer.config.KafkaConfig;
+import com.mq.kafkaconsumer.constants.InventoryConstant;
 import com.mq.kafkaconsumer.models.MessageBody;
 import com.mq.kafkaconsumer.response.genericResponse.GenericOrderResponseMapper;
 import org.slf4j.Logger;
@@ -17,20 +18,32 @@ public class MessageConsumer {
 
     @KafkaListener(topics = KafkaConfig.TOPIC, groupId = KafkaConfig.GROUP_ID,
             containerFactory = "getKafkaListenerContainerFactory")
-    public void consumer(@Payload GenericOrderResponseMapper messageBody) {
+    public void consumer(@Payload GenericOrderResponseMapper payloadFromQueue) {
 
-        System.out.println(":::::::::: "+ messageBody);
-        log.info("::: Receiving message....");
+        System.out.println("::::::::::Received To Payload from the Producer "+ payloadFromQueue);
+        log.info("::: Receiving Payload....");
 
-        if (messageBody == null) {
+        if (payloadFromQueue == null) {
             throw new KafkaException("::: Receiving Message failed....");
         }
 
         try {
-            System.out.println("Message received has body: " + messageBody);
-
+            System.out.println("Message received has body: " + payloadFromQueue);
+            /*
+            Generate Sales Inventory Report Payload from queue;
+             */
+            getOrderDetailForSalesReportFromQueue(payloadFromQueue);
         } catch (Exception ex) {
             throw new KafkaException("::: Receiving Message Failed....");
+        }
+    }
+    
+    
+    
+    public void getOrderDetailForSalesReportFromQueue(GenericOrderResponseMapper payloadFromQueue){
+        switch(payloadFromQueue.getMessage().getActionType()){
+            case InventoryConstant.RESPONSE_TYPE:
+                //:TODO Generate Inventory Report.
         }
     }
 }

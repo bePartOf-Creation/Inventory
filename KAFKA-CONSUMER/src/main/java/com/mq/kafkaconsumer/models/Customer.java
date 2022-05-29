@@ -1,4 +1,4 @@
-package com.mq.kafkaconsumer.response;
+package com.mq.kafkaconsumer.models;
 
 public class Customer {
     private String firstName;

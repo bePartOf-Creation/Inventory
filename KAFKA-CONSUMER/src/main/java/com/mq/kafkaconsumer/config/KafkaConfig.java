@@ -1,6 +1,6 @@
 package com.mq.kafkaconsumer.config;
 
-import com.mq.kafkaconsumer.models.MessageBody;
+import com.mq.kafkaconsumer.response.genericResponse.GenericOrderResponseMapper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -35,7 +35,7 @@ public class KafkaConfig {
 
     private Map<String, Object> consumerConfigs() {
 
-        JsonDeserializer<MessageBody>
+        JsonDeserializer<GenericOrderResponseMapper>
                 deserializer = getDeserializer();
 
         final Map<String, Object> hashMap = new HashMap<>();
@@ -54,8 +54,8 @@ public class KafkaConfig {
         return hashMap;
     }
 
-    private JsonDeserializer<MessageBody> getDeserializer() {
-        JsonDeserializer<MessageBody> deserializer = new JsonDeserializer<>(MessageBody.class);
+    private JsonDeserializer<GenericOrderResponseMapper> getDeserializer() {
+        JsonDeserializer<GenericOrderResponseMapper> deserializer = new JsonDeserializer<>(GenericOrderResponseMapper.class);
         deserializer.setRemoveTypeHeaders(false);
         deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);
@@ -63,7 +63,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, MessageBody> consumerFactory() {
+    public ConsumerFactory<String, GenericOrderResponseMapper> consumerFactory() {
 
         return new DefaultKafkaConsumerFactory<>(consumerConfigs(),
                                                  new StringDeserializer(),
@@ -71,10 +71,10 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, MessageBody>
+    public ConcurrentKafkaListenerContainerFactory<String, GenericOrderResponseMapper>
     getKafkaListenerContainerFactory() {
 
-        ConcurrentKafkaListenerContainerFactory<String, MessageBody> factory =
+        ConcurrentKafkaListenerContainerFactory<String, GenericOrderResponseMapper> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

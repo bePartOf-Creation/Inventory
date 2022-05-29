@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class GenericOrderResponse {
     
     private LocalDateTime orderTime;
+    private String actionType;
     private Double shippingCost;
     private String phoneNumber;
     private Double tax;

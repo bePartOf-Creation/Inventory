@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GenericOrderResponse {
     
+    private String actionType;
     private LocalDateTime orderTime;
     private Double shippingCost;
     private String phoneNumber;
