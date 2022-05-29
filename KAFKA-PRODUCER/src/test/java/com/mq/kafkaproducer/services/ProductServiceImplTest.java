@@ -47,7 +47,7 @@ class ProductServiceImplTest {
 
     @Test
     void createANewProduct() {
-        ProductDTO product1 = ProductDTO.builder().name("Hulu Boxers").productCost(2400).quantity(10).productPrice(26000).shortDescription("Best For Men").build();
+        ProductDTO product1 = ProductDTO.builder().name("Hulu Boxers").productCost(2400.0).quantity(10).productPrice(26000.0).shortDescription("Best For Men").build();
         Product newProductToBeCreated = this.productService.createANewProduct(product1);
         
         assertThat(newProductToBeCreated.getProductCreatedDate()).isEqualTo(LocalDate.now());
@@ -56,7 +56,7 @@ class ProductServiceImplTest {
     }
     @Test
     void updateProduct() {
-        ProductDTO productDTO = ProductDTO.builder().name("Tixi Boxers").productCost(2400).quantity(1).productPrice(26000).shortDescription("Best For Men").build();
+        ProductDTO productDTO = ProductDTO.builder().name("Tixi Boxers").productCost(2400.0).quantity(1).productPrice(26000.0).shortDescription("Best For Men").build();
         Product createdProduct = this.productService.createANewProduct(productDTO);
         
         ProductDTO updatedProductDTO = new ProductDTO();
@@ -72,7 +72,6 @@ class ProductServiceImplTest {
         Assertions.assertThat(pagedProduct.getContent()).size().isEqualTo(5);
     }
     @Test
-    
     void placeOrder() {
     }
 }

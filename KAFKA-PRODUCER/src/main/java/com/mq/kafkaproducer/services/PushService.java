@@ -1,7 +1,6 @@
 package com.mq.kafkaproducer.services;
 
-import com.mq.kafkaproducer.dtos.response.MessageBody;
-import com.mq.kafkaproducer.models.Order;
+import com.mq.kafkaproducer.dtos.genericResponse.GenericOrderResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,7 +11,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Service
-public class PushNotificationService {
+public class PushService {
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
@@ -21,7 +20,7 @@ public class PushNotificationService {
     private String topic;
 
     @Async
-    public void sendMessage(Order message) {
+    public void push(GenericOrderResponseMapper message) {
 
         final ListenableFuture<SendResult<String, Object>> future =
                 kafkaTemplate.send(topic, message);

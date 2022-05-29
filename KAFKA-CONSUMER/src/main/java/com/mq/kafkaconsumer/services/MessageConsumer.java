@@ -1,5 +1,8 @@
-package com.mq.kafkaconsumer;
+package com.mq.kafkaconsumer.services;
 
+import com.mq.kafkaconsumer.config.KafkaConfig;
+import com.mq.kafkaconsumer.models.MessageBody;
+import com.mq.kafkaconsumer.response.genericResponse.GenericOrderResponseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.KafkaException;
@@ -14,7 +17,7 @@ public class MessageConsumer {
 
     @KafkaListener(topics = KafkaConfig.TOPIC, groupId = KafkaConfig.GROUP_ID,
             containerFactory = "getKafkaListenerContainerFactory")
-    public void consumer(@Payload MessageBody messageBody) {
+    public void consumer(@Payload GenericOrderResponseMapper messageBody) {
 
         System.out.println(":::::::::: "+ messageBody);
         log.info("::: Receiving message....");

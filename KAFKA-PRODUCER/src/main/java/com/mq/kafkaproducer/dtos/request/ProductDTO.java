@@ -14,8 +14,8 @@ public class ProductDTO {
     private String name;
     private String shortDescription;
     private Integer quantity;
-    private Integer productPrice;
-    private Integer productCost;
+    private Double productPrice;
+    private Double productCost;
     
     
 }

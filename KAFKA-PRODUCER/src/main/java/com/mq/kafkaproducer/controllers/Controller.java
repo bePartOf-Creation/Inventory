@@ -1,13 +1,14 @@
 package com.mq.kafkaproducer.controllers;
 
+import com.mq.kafkaproducer.builder.MessageQueueBuilder;
+import com.mq.kafkaproducer.dtos.genericResponse.GenericOrderResponseMapper;
 import com.mq.kafkaproducer.dtos.request.OrderDetailDTO;
 import com.mq.kafkaproducer.dtos.request.ProductDTO;
 import com.mq.kafkaproducer.dtos.response.ApiResponse;
-import com.mq.kafkaproducer.dtos.response.MessageBody;
 import com.mq.kafkaproducer.models.Order;
 import com.mq.kafkaproducer.models.Product;
 import com.mq.kafkaproducer.services.ProductServiceImpl;
-import com.mq.kafkaproducer.services.PushNotificationService;
+import com.mq.kafkaproducer.services.PushService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class Controller {
 
     private final Logger log = LoggerFactory.getLogger(Controller.class);
     @Autowired
-    private PushNotificationService mNotificationService;
+    private PushService mNotificationService;
 
     @Autowired
     private ProductServiceImpl productService;
@@ -49,7 +50,7 @@ public class Controller {
         }
     }
     @CrossOrigin
-    @PostMapping("/order")
+    @PostMapping("/order/{customerId}/{productId}")
     public Order sendMessage(@RequestBody final OrderDetailDTO orderDetailsDTO, @PathVariable Long customerId, @PathVariable Long productId) {
 
         log.info("::: Sending Order message to KafkaConsumer.....");
@@ -59,8 +60,12 @@ public class Controller {
 
         try {
             Order orderReports = this.productService.placeOrder(customerId,productId,orderDetailsDTO);
-            mNotificationService.sendMessage(orderReports);
-            log.info("::: Message sent successfully :::");
+            //Generate OrderPayload To Consumer
+            GenericOrderResponseMapper orderPayloadToQueue = MessageQueueBuilder.generatePayloadForQueue(orderReports);
+            
+            //Push OrderPayload To Queue
+            mNotificationService.push(orderPayloadToQueue);
+            log.info(":::Order Payload sent To Queue successfully :::");
 
             return orderReports;
         } catch (Exception ex) {

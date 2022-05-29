@@ -1,4 +1,4 @@
-package com.mq.kafkaconsumer;
+package com.mq.kafkaconsumer.models;
 
 public class MessageBody {
     private String title;
