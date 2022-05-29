@@ -2,12 +2,16 @@ package com.mq.kafkaconsumer.response.genericResponse;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mq.kafkaconsumer.models.OrderDetails;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,8 +21,8 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GenericOrderResponse {
     
+    private LocalDate orderTime;
     private String actionType;
-    private LocalDateTime orderTime;
     private Double shippingCost;
     private String phoneNumber;
     private Double tax;
@@ -26,5 +30,8 @@ public class GenericOrderResponse {
     private Double productCost;
     private Double subTotal;
     private Double total;
+    private String orderAddress;
+    private String paymentMethod;
     private GenericCustomerKycResponse customerKycInfo;
+    private Set<OrderDetails> orderDetails;
 }

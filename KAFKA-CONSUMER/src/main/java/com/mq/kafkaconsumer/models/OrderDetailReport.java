@@ -1,13 +1,31 @@
 package com.mq.kafkaconsumer.models;
 
 
-import com.mq.kafkaconsumer.constants.PaymentMethod;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Table(name = "report")
 public class OrderDetailReport {
-    private LocalDateTime orderTime;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private LocalDate orderDate;
     private Double shippingCost;
     private String phoneNumber;
     private Double tax;
@@ -15,15 +33,10 @@ public class OrderDetailReport {
     private Double productCost;
     private Double subTotal;
     private Double total;
-
-    private Address customerAddress;
-
-
-    private PaymentMethod paymentMethod;
-
-
-    private Customer orderingCustomer;
-
-
-    private Set<OrderDetails> orderDetails;
+    private String customerAddress;
+    private String paymentMethod;
+    private String orderingCustomer;
+    
+    @OneToMany(mappedBy = "orderReport")
+    private Set<OrderDetails> orderDetails = new HashSet<>();
 }

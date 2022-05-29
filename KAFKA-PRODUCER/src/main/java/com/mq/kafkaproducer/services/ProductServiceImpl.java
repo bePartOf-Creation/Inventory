@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -81,15 +82,20 @@ public class ProductServiceImpl implements ProductService {
         Product orderProduct = this.productRepository.findById(productId).orElse(null);
         Customer orderingCustomer = this.customerRepo.findById(customerId).orElse(null);
         
-        if (orderProduct == null && orderingCustomer == null) 
-        {
+        if (orderProduct == null && orderingCustomer == null) {
           throw new IllegalArgumentException(orderingCustomer.getFirstName() + "this" + orderProduct.getName() + "is not available");
-
         }
+        
         OrderDetails orderDetails = getOrderDetails(orderProduct, orderDetailDTO);
+
+        // Build the Customer Address.
+        final String orderCustomerAddress = orderingCustomer.getCustomerAddress().getAddressNumber() + " " +
+                orderingCustomer.getCustomerAddress().getNameOfStreet() + " " + orderingCustomer.getCustomerAddress().getStateOfCity();
+       
+       //Place Order.
         Order newOrder = Order.builder()
-                .orderPrice(orderProduct.getProductPrice()).orderTime(LocalDateTime.now()).productCost(orderProduct.getProductCost())
-                .customerAddress(orderingCustomer.getCustomerAddress()).orderingCustomer(orderingCustomer).paymentMethod(PaymentMethod.DEBIT_CARD)
+                .orderPrice(orderProduct.getProductPrice()).orderDate(LocalDate.now()).productCost(orderProduct.getProductCost())
+                .customerAddress(orderCustomerAddress).orderingCustomer(orderingCustomer).paymentMethod(PaymentMethod.DEBIT_CARD)
                 .phoneNumber(orderingCustomer.getPhoneNumber()).shippingCost(orderDetails.getShippingCost()).tax(OrderConstant.TAX).subTotal(orderDetails.getSubTotal()).
                 build();
         newOrder.getOrderDetails().add(orderDetails);

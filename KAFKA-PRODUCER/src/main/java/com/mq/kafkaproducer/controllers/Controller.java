@@ -28,7 +28,7 @@ public class Controller {
     @Autowired
     private ProductServiceImpl productService;
 
-    public static final String TOPIC = "kafka_topic_Q";
+//    public static final String TOPIC = "kafka_topic_Q";
 
     @CrossOrigin
     @PostMapping("/new_product")

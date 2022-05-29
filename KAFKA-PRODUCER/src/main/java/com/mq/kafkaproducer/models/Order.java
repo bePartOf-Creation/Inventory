@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private LocalDateTime orderTime;
+    private LocalDate orderDate;
     private Double shippingCost;
     private String phoneNumber;
     private Double tax;
@@ -31,8 +32,7 @@ public class Order {
     private Double productCost;
     private Double subTotal;
     private Double total;
-    @OneToOne
-    private Address customerAddress;
+    private String customerAddress;
     
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
