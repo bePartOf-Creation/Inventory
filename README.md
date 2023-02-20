@@ -1,6 +1,5 @@
 # Inventory
 
-# Inventory
 
 This application consists of two (2) micro-services:
 
