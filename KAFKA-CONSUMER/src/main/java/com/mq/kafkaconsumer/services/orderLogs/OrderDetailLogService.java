@@ -1,11 +1,14 @@
-package com.mq.kafkaconsumer.services;
+package com.mq.kafkaconsumer.services.orderLogs;
 
-import com.mq.kafkaconsumer.models.OrderDetailLog;
+import com.mq.kafkaconsumer.dtos.response.OrderReport;
 import com.mq.kafkaconsumer.dtos.response.GenericOrderResponseMapper;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public interface OrderDetailLogService {
     
-    OrderDetailLog createSaleReport(GenericOrderResponseMapper payloadFromQueue);
-    Page<OrderDetailLog> getSalesReport(String startDate, String endDate);
+    void createSaleReport(GenericOrderResponseMapper payloadFromQueue);
+    List<OrderReport> getSalesReport(LocalDate startDate, LocalDate endDate, Pageable pageable);
 }

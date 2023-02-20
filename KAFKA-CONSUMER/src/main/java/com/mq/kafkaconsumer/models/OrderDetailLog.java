@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Table(name = "report")
-public class OrderDetailReport {
+public class OrderDetailLog {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +41,5 @@ public class OrderDetailReport {
 
     
     @OneToMany(mappedBy = "orderReport")
-    private Set<OrderDetails> orderDetails = new HashSet<>();
+    private List<OrderDetails> orderDetails = new ArrayList<>();
 }

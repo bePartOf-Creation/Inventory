@@ -1,5 +1,6 @@
 package com.mq.kafkaconsumer.config;
 
+import com.mq.kafkaconsumer.dtos.response.GenericOrderResponseMapper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;

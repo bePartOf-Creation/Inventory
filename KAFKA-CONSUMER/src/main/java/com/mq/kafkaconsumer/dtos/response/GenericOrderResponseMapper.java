@@ -1,7 +1,8 @@
-package com.mq.kafkaconsumer.response.genericResponse;
+package com.mq.kafkaconsumer.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mq.kafkaconsumer.dtos.response.GenericOrderResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.mq.kafkaconsumer.response.genericResponse;
+package com.mq.kafkaconsumer.dtos.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
