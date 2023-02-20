@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -15,10 +15,13 @@ import java.util.Set;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GenericCustomerKycResponse {
+public class GenericOrderItem {
+    private Integer quantity;
+    private Double productCost;
+    private String name;
+    private String shortDescription;
+    private Double productPrice;
+    private LocalDate productCreatedDate;
 
-    private String customerName;
-    private String customerPhoneNumber;
 
-   
 }

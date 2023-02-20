@@ -36,6 +36,7 @@ public class OrderDetailReport {
     private String customerAddress;
     private String paymentMethod;
     private String orderingCustomer;
+
     
     @OneToMany(mappedBy = "orderReport")
     private Set<OrderDetails> orderDetails = new HashSet<>();

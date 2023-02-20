@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -28,21 +29,23 @@ public class Order {
     private Double shippingCost;
     private String phoneNumber;
     private Double tax;
-    private Double orderPrice;
-    private Double productCost;
+//    private Double orderPrice;
+//    private Double productCost;
     private Double subTotal;
     private Double total;
     private String customerAddress;
+    private String customerName;
+    private String customerPhoneNumber;
     
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer orderingCustomer;
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id")
+//    private Customer orderingCustomer;
     
     @OneToMany(mappedBy = "orders")
-    private Set<OrderDetails> orderDetails = new HashSet<>();
+    private List<OrderItemDetail> orderItemDetails = new ArrayList<>();
     
   
     

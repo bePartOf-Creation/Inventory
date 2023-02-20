@@ -1,9 +1,9 @@
 package com.mq.kafkaconsumer.services;
 
 import com.mq.kafkaconsumer.builders.EntityBuilder;
-import com.mq.kafkaconsumer.models.OrderDetailReport;
-import com.mq.kafkaconsumer.repository.OrderDetailRepository;
-import com.mq.kafkaconsumer.response.genericResponse.GenericOrderResponseMapper;
+import com.mq.kafkaconsumer.models.OrderDetailLog;
+import com.mq.kafkaconsumer.repository.OrderDetailLogRepository;
+import com.mq.kafkaconsumer.dtos.response.GenericOrderResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,18 +13,18 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 @Service
-public class OrderDetailServiceImpl implements OrderDetailService{
+public class OrderDetailLogServiceImpl implements OrderDetailLogService {
     @Autowired
-    private OrderDetailRepository orderDetailRepo;
+    private OrderDetailLogRepository orderDetailRepo;
     
     @Override
-    public OrderDetailReport createSaleReport(GenericOrderResponseMapper payloadFromQueue) {
-        OrderDetailReport newOrderReport = EntityBuilder.orderDetailReportBuild(payloadFromQueue);
+    public OrderDetailLog createSaleReport(GenericOrderResponseMapper payloadFromQueue) {
+        OrderDetailLog newOrderReport = EntityBuilder.orderDetailReportBuild(payloadFromQueue);
         return orderDetailRepo.save(newOrderReport);
     }
 
     @Override
-    public Page<OrderDetailReport> getSalesReport(String startDate, String endDate) {
+    public Page<OrderDetailLog> getSalesReport(String startDate, String endDate) {
         LocalDate orderStartDate = LocalDate.parse(startDate);
         LocalDate orderEndDate = LocalDate.parse(endDate);
         Pageable pageable = PageRequest.of(0,5);

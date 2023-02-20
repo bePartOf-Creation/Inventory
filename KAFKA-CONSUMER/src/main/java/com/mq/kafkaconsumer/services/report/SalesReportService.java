@@ -2,6 +2,7 @@ package com.mq.kafkaconsumer.services;
 
 import com.mq.kafkaconsumer.config.KafkaConfig;
 import com.mq.kafkaconsumer.constants.InventoryConstant;
+import com.mq.kafkaconsumer.dtos.response.GenericOrderResponseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.KafkaException;

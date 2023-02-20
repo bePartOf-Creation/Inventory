@@ -14,7 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     @Query("select p from Product p WHERE p.name = ?1")
     Optional<Product> findByName(String name);
-    
-    Optional<Product> findById(Long id);
+
     Page<Product> findAll(Pageable pageable);
 }

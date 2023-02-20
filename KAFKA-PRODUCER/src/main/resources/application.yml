@@ -22,7 +22,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: ola
-    url : jdbc:postgresql://localhost:5432/salesDB  
+    url: jdbc:postgresql://localhost:5432/salesDB
     
 pagination-size:  5
 pagination-in-pages: 0
